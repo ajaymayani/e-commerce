@@ -7,6 +7,7 @@ import com.example.ecommerce.repositories.UserRepository;
 import com.example.ecommerce.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,12 +22,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public UserDto createUser(UserDto userDto) {
 
         User user = this.modelMapper.map(userDto, User.class);
         user.setUId(UUID.randomUUID().toString());
+        user.setPassword(this.passwordEncoder.encode(userDto.getPassword()));
         User savedUser = this.userRepository.save(user);
         return this.modelMapper.map(savedUser, UserDto.class);
     }

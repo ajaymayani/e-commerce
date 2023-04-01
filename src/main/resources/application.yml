@@ -19,3 +19,6 @@ spring:
 
 project:
   image: images/
+
+jwtSecret: jwtSecretKey
+jwtExpirationMs: 86400000
