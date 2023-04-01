@@ -23,13 +23,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto createCategory(CategoryDto categoryDto) {
         Category category = this.modelMapper.map(categoryDto, Category.class);
-        category.setCId(UUID.randomUUID().toString());
+//        category.setCId(UUID.randomUUID().toString());
         Category saved = this.categoryRepository.save(category);
         return this.modelMapper.map(saved, CategoryDto.class);
     }
 
     @Override
-    public CategoryDto updateCategory(CategoryDto categoryDto, String cId) {
+    public CategoryDto updateCategory(CategoryDto categoryDto, Integer cId) {
         Category category = getCategory(cId);
         category.setCategoryName(categoryDto.getCategoryName());
         category.setCategoryDescription(categoryDto.getCategoryDescription());
@@ -38,13 +38,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteCategory(String cId) {
+    public void deleteCategory(Integer cId) {
         Category category = getCategory(cId);
         this.categoryRepository.delete(category);
     }
 
     @Override
-    public CategoryDto getCategoryById(String cId) {
+    public CategoryDto getCategoryById(Integer cId) {
         return this.modelMapper.map(getCategory(cId), CategoryDto.class);
     }
 
@@ -54,7 +54,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categories.stream().map(category -> this.modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList());
     }
 
-    private Category getCategory(String cId) {
+    private Category getCategory(Integer cId) {
         return this.categoryRepository.findById(cId).orElseThrow(() -> new ResourceNotFoundException("Category", "category id ", cId));
     }
 }

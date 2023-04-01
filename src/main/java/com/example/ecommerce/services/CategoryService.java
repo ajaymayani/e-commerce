@@ -9,13 +9,13 @@ public interface CategoryService {
     CategoryDto createCategory(CategoryDto categoryDto);
 
     //update Category
-    CategoryDto updateCategory(CategoryDto categoryDto, String cId);
+    CategoryDto updateCategory(CategoryDto categoryDto, Integer cId);
 
     //delete Category
-    void deleteCategory(String cId);
+    void deleteCategory(Integer cId);
 
     //fetch single Category
-    CategoryDto getCategoryById(String cId);
+    CategoryDto getCategoryById(Integer cId);
 
     //fetch all Category
     List<CategoryDto> getAllCategorys();

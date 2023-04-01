@@ -1,10 +1,10 @@
 package com.example.ecommerce.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "category")
@@ -12,11 +12,13 @@ import lombok.Data;
 public class Category {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "c_id")
-    private String cId;
+    private Integer cId;
     @Column(name = "category_name")
    private String categoryName;
     @Column(name = "category_description")
    private String categoryDescription;
-
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+    private List<Product> products = new ArrayList<>();
 }
