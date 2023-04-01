@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,18 +28,20 @@ public class ProductController {
     @Autowired
     private FileService fileService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/category/{cId}/products")
     public ResponseEntity<ProductDto> createPost(@RequestBody ProductDto productDto, @PathVariable Integer cId) {
         ProductDto product = this.productService.createProduct(productDto, cId);
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/products/{pId}")
     public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto, @PathVariable Integer pId) {
         ProductDto productDto1 = this.productService.updateProduct(productDto, pId);
         return ResponseEntity.ok(productDto1);
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/products/{pId}")
     public ResponseEntity<ApiResponse> deleteProduct(@PathVariable Integer pId) {
         this.productService.deleteeProduct(pId);
@@ -66,6 +69,7 @@ public class ProductController {
         return ResponseEntity.ok(allProducts);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/products/image/upload/{pId}")
     public ResponseEntity<ProductDto> uploadImage(@RequestParam("image") MultipartFile image, @PathVariable Integer pId) throws IOException {
 
