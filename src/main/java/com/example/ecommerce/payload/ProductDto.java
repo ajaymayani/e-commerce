@@ -1,10 +1,13 @@
 package com.example.ecommerce.payload;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
 public class ProductDto {
     private String pId;
     private String productName;
@@ -14,5 +17,4 @@ public class ProductDto {
     private String imageUrl;
     private Date createdAt;
     private Date modifiedAt;
-    private CategoryDto category;
 }

@@ -1,13 +1,17 @@
 package com.example.ecommerce.entities;
 
+import com.example.ecommerce.payload.CartDto;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "products")
-@Data
+@Getter
+@Setter
 public class Product {
     @Id
     @Column(name = "p_id")
